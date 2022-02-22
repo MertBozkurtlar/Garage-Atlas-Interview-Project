@@ -49,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
 
         // Movement Variables
-        _movementSpeed = 2;
+        _movementSpeed = 4;
         _rotationSpeed = 1;
     }
 
