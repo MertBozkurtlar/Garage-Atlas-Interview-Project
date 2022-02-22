@@ -9,8 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _characterController;
     [SerializeField]
     private Animator _animator;
-    [SerializeField]
-    private Transform _cameraMainTransform;
+    public Transform cameraMainTransform;
     private PlayerMovementActions _playerMovementActions;
 
     [Header("Movement Variables")]
@@ -33,6 +32,24 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _playerMovementActions = new PlayerMovementActions();
+
+        // Character controller
+        gameObject.AddComponent<CharacterController>();
+        _characterController = gameObject.GetComponent<CharacterController>();
+        _characterController.center = new Vector3(0f, 0.97f, 0f);
+        _characterController.radius = 0.5f;
+        _characterController.height = 1.8f;
+
+        // Animator
+        _animator = gameObject.GetComponent<Animator>();
+
+        // Rigidbody
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        // Movement Variables
+        _movementSpeed = 2;
+        _rotationSpeed = 1;
     }
 
     private void OnEnable()
@@ -57,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("There is no camera on scene");
             return;
         }
-        _cameraMainTransform = Camera.main.transform;
+        cameraMainTransform = Camera.main.transform;
     }
     void Update()
     {
@@ -67,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Set the pseudo velocity vector according to input and camera position
         Vector3 move = new Vector3(_horizontalInput, 0, _verticalInput);
-        move = _cameraMainTransform.forward * move.z + _cameraMainTransform.right * move.x;
+        move = cameraMainTransform.forward * move.z + cameraMainTransform.right * move.x;
         move.y = 0;
         _characterController.Move(move * Time.deltaTime * _movementSpeed);
 
@@ -88,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
             // Relocation
             gameObject.transform.forward = move;
             // Rotation
-            _movementAngle = Mathf.Atan2(_horizontalInput, _verticalInput) * Mathf.Rad2Deg + _cameraMainTransform.eulerAngles.y;
+            _movementAngle = Mathf.Atan2(_horizontalInput, _verticalInput) * Mathf.Rad2Deg + cameraMainTransform.eulerAngles.y;
             Quaternion rotation = Quaternion.Euler(0f, _movementAngle, 0f);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotationSpeed);
         }

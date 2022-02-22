@@ -14,6 +14,8 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
         // Avatar download timeout
         public int Timeout { get; set; } = 20;
 
+
+
         /// <summary>
         ///     Load Avatar GameObject from given GLB url.
         /// </summary>
@@ -36,6 +38,7 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
             // Avatar GLB model bytes in memory.
             private byte[] avatarBytes;
             private AvatarUri uri;
+
 
             // Makes web request for downloading avatar model into memory and imports the model.
             protected override IEnumerator LoadAvatarAsync(AvatarUri uri)
