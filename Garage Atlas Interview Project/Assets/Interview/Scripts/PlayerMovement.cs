@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         _characterController.center = new Vector3(0f, 0.97f, 0f);
         _characterController.radius = 0.5f;
         _characterController.height = 1.8f;
+        _characterController.stepOffset = 0.35f;
 
         // Animator
         _animator = gameObject.GetComponent<Animator>();

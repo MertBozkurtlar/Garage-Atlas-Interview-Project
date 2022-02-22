@@ -12,16 +12,16 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
     public class AvatarLoader
     {
         // Avatar download timeout
-        public int Timeout { get; set; } = 20;
+        public int Timeout { get; set; } = 50;
 
 
 
-        /// <summary>
-        ///     Load Avatar GameObject from given GLB url.
-        /// </summary>
-        /// <param name="url">GLB Url acquired from readyplayer.me</param>
-        /// <param name="onAvatarImported">Callback method that returns reference to Avatar GameObject</param>
-        /// <param name="onAvatarLoaded">Callback method that returns reference to avatar game object and avatars meta data</param>
+        // / <summary>
+        // /     Load Avatar GameObject from given GLB url.
+        // / </summary>
+        // / <param name="url">GLB Url acquired from readyplayer.me</param>
+        // / <param name="onAvatarImported">Callback method that returns reference to Avatar GameObject</param>
+        // / <param name="onAvatarLoaded">Callback method that returns reference to avatar game object and avatars meta data</param>
         public void LoadAvatar(string url, Action<GameObject> onAvatarImported = null, Action<GameObject, AvatarMetaData> onAvatarLoaded = null)
         {
             LoadOperation operation = new LoadOperation();

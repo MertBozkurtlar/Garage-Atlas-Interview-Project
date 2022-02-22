@@ -8,6 +8,8 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
 {
     public abstract class AvatarLoaderBase
     {
+        public static bool canLoad = true;
+
         // Avatar download timeout
         public int Timeout { get; set; } = 20;
 
@@ -60,13 +62,21 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
             OnAvatarImported = onAvatarImported;
             OnAvatarLoaded = onAvatarLoaded;
 
-            AvatarUri uri = await new AvatarUri().Create(url);
-            LoadAvatarAsync(uri).Run();
+            try
+            {
+
+                AvatarUri uri = await new AvatarUri().Create(url);
+                LoadAvatarAsync(uri).Run();
+            }
+            catch
+            {
+                canLoad = false;
+            }
         }
 
         // Makes web request for downloading avatar model and imports the model.
         protected abstract IEnumerator LoadAvatarAsync(AvatarUri uri);
-        
+
         // Downloading avatar model
         protected abstract IEnumerator DownloadAvatar(AvatarUri uri);
 
@@ -115,7 +125,7 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
         }
 
 
-        private string OutfitVersion(int version) 
+        private string OutfitVersion(int version)
         {
             switch (version)
             {
@@ -138,7 +148,7 @@ namespace Wolf3D.ReadyPlayerMe.AvatarSDK
                 avatarMetaData.OutfitVersion = LegacyOutfitVersion;
 
                 // Body type
-                avatarMetaData.BodyType = avatar.transform.Find(LeftUpLeg) ? BodyType.Fullbody: BodyType.Halfbody;
+                avatarMetaData.BodyType = avatar.transform.Find(LeftUpLeg) ? BodyType.Fullbody : BodyType.Halfbody;
 
                 // Outfit Gender
                 if (avatarMetaData.IsFullbody())
