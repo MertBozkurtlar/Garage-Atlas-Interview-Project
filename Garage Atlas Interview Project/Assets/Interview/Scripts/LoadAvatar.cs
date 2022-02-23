@@ -66,5 +66,6 @@ public class LoadAvatar : MonoBehaviour
         // Hide the UI
         _UILoadingCanvas.SetActive(false);
         Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }
